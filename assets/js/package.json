@@ -1,0 +1,22 @@
+{
+  "name": "flashcard.js",
+  "version": "1.2.0",
+  "description": "This is flash card program for displaying flash cards with questions with an option of showing all the flash cards with answers for 30 seconds. In coding I am using one file for data export named cardf.js and reading the ojects of the file in the second file called flashcard.js and using the constructor function for building card game.",
+  "main": "flashcard.js",
+  "scripts": {
+    "test": "node flashcard.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Flashcard-Generator"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Ravinder Soni",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^3.0.6",
+    "require": "^2.4.20"
+  }
+}

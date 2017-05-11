@@ -1,7 +1,8 @@
 //Flash Card Generator with flash card cloze
-var newflash = require("./cardf.js");
+var newflash = require("./cardf.js"); //Getting Question Bank
 var inquirer = require("inquirer");
 var request = require("request");
+// Defining Global variables
 var vtext = [];
 var clozey = [];
 var vQuiz = [];
@@ -9,14 +10,22 @@ var str = [];
 var lineChar = "-";
 var dash = ".";
 var score = 0;
-vtext = newflash.ntext;
-clozey = newflash.clozekey;
-var qLength = vtext.length;
+//**** Constructor Function for flash card
+function flashCard(dtext, myclozekey) {
+    this.backText = dtext;
+    this.backClozey = myclozekey;
+    this.textlength = dtext.length;
+}
+// ******** Creating flash card back object *****
+var vtext1 = new flashCard(newflash.ntext, newflash.clozekey);
+vtext = vtext1.backText; // asigning to global variable
+clozey = vtext1.backClozey;
+var qLength = vtext1.textlength; // getting the number of questions
 
 function menu() {
-    process.stdout.write('\033c');
-    inquirer.prompt([{
+    process.stdout.write('\033c'); //Clearing the screen
 
+    inquirer.prompt([{
         type: "list",
         name: "myChoices",
         message: "------(FLASH CARD MENU)------",
@@ -53,8 +62,8 @@ function buildQuiz() {
     for (var i = 0; i < qLength; i++) {
         var str = vtext[i];
         var clozey1 = clozey[i];
-        var dashSize = dash.repeat(clozey1.length)
-        var x = str.replace(clozey1, dashSize);
+        var dashSize = dash.repeat(clozey1.length) // Calculating length of quiz word
+        var x = str.replace(clozey1, dashSize); // Swapping quizword with dash
 
         vQuiz[i] = x;
     }
@@ -77,18 +86,18 @@ function showQuiz() {
         var upperComp = clozey[qIndex].toUpperCase();
         if (upperIn === upperComp) {
 
-            score = score+1;
+            score = score + 1;
             console.log("Good Job! your score is " + score);
-           
+
         } else {
             console.log("The Correct Answer is " + clozey[qIndex]);
-           
+
         }
         enterToCont();
-        
+
     })
 }
-
+// function to give pause
 function tempPause() {
     setTimeout(function() {
         //process.stdout.write('\033c');
@@ -98,16 +107,17 @@ function tempPause() {
 }
 
 
-
+// function to create message after quiz question
 function enterToCont() {
     inquirer.prompt([{
         type: "input",
         name: "enter",
         message: "Press <Enter> to Continue..."
     }]).then(function(user) {
-    	menu();
+        menu();
     });
 }
 
-menu();
-buildQuiz();
+menu(); // Calling Menu
+buildQuiz(); // Calling buildQuiz function 
+// --------------- End of Code -----------------
